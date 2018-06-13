@@ -32,6 +32,7 @@ resource "aws_spot_fleet_request" "common_nodes" {
     root_block_device {
       volume_size = "${var.disk_size_root}"
       volume_type = "gp2"
+      delete_on_termination = true
     }
 
     user_data = "${var.userdata}"
