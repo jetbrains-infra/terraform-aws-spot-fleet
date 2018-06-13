@@ -10,6 +10,14 @@ locals {
 
 variable "ssh_key" {}
 variable "security_group_ids" {}
+locals {
+  security_groups = ["${
+    compact(distinct(concat(
+        split(",", var.security_group_ids),
+        split(",", "${var.internet_access ? aws_security_group.access_to_internet.id : ""}")
+    )))
+  }"]
+}
 
 variable "iam_instance_profile_arn" {
   default = ""
@@ -43,4 +51,7 @@ variable "valid_until" {
 }
 variable "public_ip" {
   default = false
+}
+variable "internet_access" {
+  default = true
 }

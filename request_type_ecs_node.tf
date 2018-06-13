@@ -26,7 +26,7 @@ resource "aws_spot_fleet_request" "ecs_nodes" {
     key_name                 = "${var.ssh_key}"
     availability_zone        = "${local.az}"
     subnet_id                = "${var.subnet_id}"
-    vpc_security_group_ids   = ["${split(",", var.security_group_ids)}"]
+    vpc_security_group_ids   = ["${local.security_groups}"]
     associate_public_ip_address = "${var.public_ip}"
 
     // root partition

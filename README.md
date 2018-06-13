@@ -27,6 +27,7 @@ The module provide the following profiles:
 * `disk_size_docker` - size of instance docker partition, used for `ecs_node` type (default is 25Gb)
 * `valid_until` - the date until spot request is valid (default `2033-01-01T01:00:00Z`)
 * `public_ip` - assign public IP on EC2 node (default `false`)
+* `internet_access` - allow access to internet (default `true`)
 
 ## Usage
 
