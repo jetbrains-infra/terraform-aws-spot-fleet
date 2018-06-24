@@ -9,12 +9,14 @@ locals {
 }
 
 variable "ssh_key" {}
-variable "security_group_ids" {}
+variable "security_group_ids" {
+  type = "list"
+}
 locals {
   security_groups = ["${
     compact(distinct(concat(
-        split(",", var.security_group_ids),
-        split(",", "${var.internet_access ? aws_security_group.access_to_internet.id : ""}")
+        var.security_group_ids,
+        list("${var.internet_access ? aws_security_group.access_to_internet.id : ""}")
     )))
   }"]
 }

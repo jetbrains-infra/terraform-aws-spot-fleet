@@ -38,7 +38,7 @@ module "bastion_host" {
     name                 = "Bastion host"
     subnet_id            = "${aws_subnet.default.id}"
     ssh_key              = "${aws_key_pair.default.id}"
-    security_group_id    = "${aws_security_group.example.id}"
+    security_group_ids   = ["${aws_security_group.myecs.id}"]
 }
 ```
 
@@ -48,7 +48,7 @@ module "my_ecs_nodes" {
     source               = ""
     name                 = "Example ECS cluster"
     subnet_id            = "${aws_subnet.default.id}"
-    security_group_id    = "${aws_security_group.myecs.id}"
+    security_group_ids   = ["${aws_security_group.myecs.id}"]
     iam_instance_profile = "${aws_iam_instance_profile.ecs_node.id}" // wtf
     capacity             = "5"
     type                 = "ecs_node" // currently supported values are "common_node" & "ecs_node"
