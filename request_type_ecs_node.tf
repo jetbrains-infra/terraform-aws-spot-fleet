@@ -22,7 +22,7 @@ resource "aws_spot_fleet_request" "ecs_nodes" {
   launch_specification {
     instance_type            = "${var.ec2_type}"
     ami                      = "${var.ecs_node_ami_id == "" ? data.aws_ami.ecs_ami.id : var.ecs_node_ami_id}"
-    iam_instance_profile_arn = "${var.iam_instance_profile_arn == "" ? aws_iam_instance_profile.instance_profile.arn : ""}"
+    iam_instance_profile_arn = "${var.iam_instance_profile_arn == "" ? aws_iam_instance_profile.instance_profile.arn : var.iam_instance_profile_arn}"
     key_name                 = "${var.ssh_key}"
     availability_zone        = "${local.az}"
     subnet_id                = "${var.subnet_id}"

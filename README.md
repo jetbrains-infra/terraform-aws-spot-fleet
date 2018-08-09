@@ -45,15 +45,15 @@ module "bastion_host" {
 Example: Five ECS nodes of __c5.large__ type
 ```
 module "my_ecs_nodes" {
-    source               = ""
-    name                 = "Example ECS cluster"
-    subnet_id            = "${aws_subnet.default.id}"
-    security_group_ids   = ["${aws_security_group.myecs.id}"]
-    iam_instance_profile = "${aws_iam_instance_profile.ecs_node.id}" // wtf
-    capacity             = "5"
-    type                 = "ecs_node" // currently supported values are "common_node" & "ecs_node"
-    ec2_type             = "c5.large"
-    userdata             = <<EOT
+    source                   = "github.com/jetbrains-infra/terraform-aws-spot-fleet"
+    name                     = "Example ECS cluster"
+    subnet_id                = "${aws_subnet.default.id}"
+    security_group_ids       = ["${aws_security_group.myecs.id}"]
+    iam_instance_profile_arn = "${aws_iam_instance_profile.ecs_node.arn}" // wtf
+    capacity                 = "5"
+    type                     = "ecs_node" // currently supported values are "common_node" & "ecs_node"
+    ec2_type                 = "c5.large"
+    userdata                 = <<EOT
 #!/bin/bash
 echo ECS_CLUSTER="${aws_ecs_cluster.example.name}" >> /etc/ecs/ecs.config
 
